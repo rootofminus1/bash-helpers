@@ -70,3 +70,11 @@ uninstall:
         done; \
     fi
     @echo "Done"
+
+restart:
+    @systemctl --user daemon-reload
+    @for f in {{services_dir}}/*.service; do \
+        name=$(basename "$f"); \
+        systemctl --user restart "$name"; \
+        echo "Restarted: $name"; \
+    done
